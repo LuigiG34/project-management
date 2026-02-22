@@ -6,7 +6,7 @@ import {useState} from "react";
 function App() {
     const [projectsState, setProjectsState] = useState({
         selectedProjectId: undefined,
-        project: []
+        projects: []
     });
 
     function handleStartAddProject() {
@@ -28,7 +28,7 @@ function App() {
             return {
                 ...prevState,
                 selectedProjectId: undefined,
-                project: [...prevState.project, newProject],
+                projects: [...prevState.projects, newProject],
             }
         });
     }
@@ -45,7 +45,7 @@ function App() {
 
     return (
         <main className="h-screen my-8 flex flex-gap-8">
-            <ProjectsSidebar onStartAddProject={handleStartAddProject} />
+            <ProjectsSidebar onStartAddProject={handleStartAddProject} projects={projectsState.projects} />
             {content}
         </main>
     );
