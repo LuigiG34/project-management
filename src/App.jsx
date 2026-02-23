@@ -12,6 +12,10 @@ function App() {
     });
 
     function handleAddTask(text) {
+        if(text.trim().length === 0){
+            return;
+        }
+
         setProjectsState(prevState => {
             const newTask = {
                 text: text,
@@ -26,7 +30,16 @@ function App() {
         });
     }
 
-    function handleDeleteTask() {}
+    function handleDeleteTask(id) {
+        setProjectsState(prevState => {
+            return {
+                ...prevState,
+                tasks: prevState.tasks.filter(
+                    (task) => task.id !== id
+                )
+            }
+        });
+    }
 
     function handleStartAddProject() {
         setProjectsState(prevState => {
@@ -94,7 +107,7 @@ function App() {
 
     return (
         <main className="h-screen my-8 flex flex-gap-8">
-            <ProjectsSidebar onStartAddProject={handleStartAddProject} projects={projectsState.projects} onSelectProject={handleSelectProject} />
+            <ProjectsSidebar onStartAddProject={handleStartAddProject} projects={projectsState.projects} onSelectProject={handleSelectProject} selectProjectId={projectsState.selectedProjectId} />
             {content}
         </main>
     );
